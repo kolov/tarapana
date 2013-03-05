@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Stairs</title>
+    <script src="/jslib/jquery-1.7.js"></script>
+
+    <link rel="stylesheet" href="/css/stairs.css">
+    <link rel="stylesheet" href="/jslib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet"
+          href="/jslib/bootstrap/css/bootstrap-responsive.css">
+ 
+    <link rel="stylesheet" href="/closure-library/closure/goog/css/tree.css">
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1 style="margin: 30px;">Stairs</h1>
+    </div>
+
+   <canvas id="theCanvas" width="400px" height="400px"/>
+
+</div>
+
+
+<script type="text/javascript"
+        src="/closure-library/closure/goog/base.js">
+</script>
+<script type="text/javascript" src="/cljs/stairs.js"></script>
+<script type="text/javascript">
+    goog.require('tarapana.stairs');
+</script>
+
+<script>
+$(tarapana.stairs.initPage);
+</scrit>
+
+</body>
+</html>
+  
+  
