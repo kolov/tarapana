@@ -19,14 +19,13 @@
                                         ; try:
                                         ; (admitted 30 {:filled 15} [{:filled 5} {:filled 50}])
 
-(defn admitted[capacity stair streams]
-  (let [want-stair (if stair (:filled stair) 0)
-        want-streams (reduce + (map :filled streams))
-        may-stair (min want-stair (max (/ capacity 2) (- capacity want-streams)))
-        will-stair (max may-stair want-stair)
+(defn admittance[capacity want-stair streams]
+  (let [
+        want-streams (reduce + streams)
+        may-stair (max (/ capacity 2) (- capacity want-streams))
+        will-stair (min may-stair want-stair)
         will-streams (min  want-streams (- capacity will-stair))
-        ordered-streams (sort-by #(:filled (second %)) (indexed streams))
-        ordered-filled (map #( vector (first %) (:filled (second %)))  ordered-streams)
+        ordered-filled (sort-by #(second %) (indexed streams)) 
         r  (reduce distribute-streams [[will-streams (count streams)] []] ordered-filled)
         r2 (second r)
         r-ordered (sort-by first r2)
@@ -55,7 +54,9 @@
   (let [{filled :filled upstair :stair upstreams :streams capacity :capacity} stair
         gone (min filled canleave)
         can-enter (+ gone (- capacity filled))
-        admittance (admitted can-enter upstair upstreams)
+        admittance (admittance can-enter
+                             (if upstair (:filled upstair) 0)
+                             (map :filled upstreams))
         will-enter (reduce + (flatten admittance))
         stair1  (merge stair {:gone gone :filled (+ will-enter (- filled gone))
                            ;   :just-entered will-enter :addmittance admittance

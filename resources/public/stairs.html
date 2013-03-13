@@ -20,6 +20,19 @@
         <h1 style="margin: 30px;">Stairs</h1>
     </div>
 
+    <div class="row">
+        <div class="span2">Start with
+            <input id="floors" type="text" value="5" maxlength="2" style="width: 3em;" />
+            floors
+        </div>
+        <div class="span2">
+            <input type="button" id="generate" value="Go" class="btn" s></div>
+    </div>
+
+    <div class="row" >
+        <div class="span4" id="stairs-input"></div>
+    </div>
+
    <canvas id="theCanvas" width="400px" height="400px"/>
 
 </div>
@@ -30,12 +43,10 @@
 </script>
 <script type="text/javascript" src="/cljs/stairs.js"></script>
 <script type="text/javascript">
-    goog.require('tarapana.stairs');
+    tarapana.stairs.initPage();
+
 </script>
 
-<xxscript>
-$(tarapana.stairs.initPage);
-</scrit>
 
 </body>
 </html>
