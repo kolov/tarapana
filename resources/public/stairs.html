@@ -2,15 +2,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Stairs</title>
-    <script src="/jslib/jquery-1.7.js"></script>
 
-    <link rel="stylesheet" href="/css/stairs.css">
-    <link rel="stylesheet" href="/jslib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet"
-          href="/jslib/bootstrap/css/bootstrap-responsive.css">
- 
-    <link rel="stylesheet" href="/closure-library/closure/goog/css/tree.css">
+    <link rel="stylesheet" type="text/css" href="/css/stairs.css">
+    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/jslib/bootstrap/css/bootstrap-responsive.css">
+<style>
 
+
+    .small-input {
+        width: 8em;
+    }
+</style>
 </head>
 <body>
 
@@ -29,8 +31,7 @@
             <input type="button" id="generate" value="Go" class="btn" s></div>
     </div>
 
-    <div class="row" >
-        <div class="span4" id="stairs-input"></div>
+    <div class="row" id="stairs-input">
     </div>
 
    <canvas id="theCanvas" width="400px" height="400px"/>
@@ -38,13 +39,10 @@
 </div>
 
 
-<script type="text/javascript"
-        src="/closure-library/closure/goog/base.js">
-</script>
+
 <script type="text/javascript" src="/cljs/stairs.js"></script>
 <script type="text/javascript">
     tarapana.stairs.initPage();
-
 </script>
 
 
