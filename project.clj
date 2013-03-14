@@ -18,14 +18,18 @@
                      [lein-ring "0.5.4"]
                      [ring-serve "0.1.1"]
                      ]
-  :plugins [[lein-cljsbuild "0.2.7"]
+  :plugins [[lein-cljsbuild "0.3.0"]
             [lein-swank "1.4.4"]]
+  :source-path "src"
   :main tarapana.core
   :ring {:handler net.kolov.jaclo.core/app}
   ;  :hooks [leiningen.cljsbuild]
   :extra-classpath-dirs ["~/projects/clojurescript/src/clj"
                          "~/projects/clojurescript/src/cljs"]
-  :cljsbuild {:builds [{:source-path "src-cljs/stairs",
+  :cljsbuild {
+      :crossovers [tarapana.flow]
+      :crossover-path "crossover-cljs"
+      :builds [{:source-path "src-cljs/stairs",
                         :compiler {:pretty-print true,
                                    :output-to "resources/public/cljs/stairs.js",
                                    :optimizations :whitespace}}

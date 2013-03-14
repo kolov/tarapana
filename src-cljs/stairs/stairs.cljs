@@ -56,15 +56,17 @@
 
 (defn get-input[id] (if-let [d (d/by-id id)] (-> d .-value js/parseInt)))
 (defn get-stream[level ix] (get-input (str "stream" level "-" ix)))
-(defn get-stair[level] (get-input (str "stair" level)))
+(defn get-stair-capacity[level] (get-input (str "stair" level)))
+(defn get-stair-filled[level] (get-input (str "stair-filled" level)))
 (defn make-stair1[n] 
-{ :capacity (get-stair n) 
+{ :capacity (get-stair-capacity n)
+  :filled (get-stair-filled n) 
   :streams (loop [i 0 r []] (let[v (get-stream n i)] 
    (if v (recur (inc i) (conj r {:filled v})) r)))})
 
 (defn make-stair[n]
  (let[stair (make-stair1 n)]
-   (if (get-stair (inc n)) (assoc stair :stair (make-stair (inc n))) stair)))
+   (if (get-stair-capacity (inc n)) (assoc stair :stair (make-stair (inc n))) stair)))
  
 
 
@@ -74,8 +76,8 @@
 (set! (.-onclick (d/by-id "show")) doShow)
 
 (defn doStart[] 
-  (swap! stages (loop [i 30 s @theStair r [] ]
-     (if (> s 0) (recur (dec i) (f/next-stair s) (conj r s))))))
+  (js/alert (loop [i 30 s @theStair r [] ]
+     (if (> i 0) (recur (dec i) (f/next-stair s) (conj r s)) r) )))
 
 (set! (.-onclick (d/by-id "start")) doStart)
 
@@ -83,9 +85,8 @@
 (do
   (append! el (reduce str (map floor (reverse (range n))) ))
   (d/set-styles! (d/by-id "buttons") {:visibility "visible"})
-  (swap! theStair #(make-stair 0))))
+  (swap! theStair #(make-stair 0)))
+(js/alert @theStair))
 
-(set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") 5))
-(set! (.-onclick generateButton) #(js/alert 6))
-
+(set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") (get-input "floors"))) 
  
