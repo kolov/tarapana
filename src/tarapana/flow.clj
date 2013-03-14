@@ -1,5 +1,4 @@
-(ns tarapana.flow
-)
+(ns tarapana.flow)
 
 (defn indexed [coll] (map vector (iterate inc 0) coll))
 
@@ -64,9 +63,9 @@
         ]
     (update-streams (if upstair (update-upstair stair1 admittance) stair1 ) admittance)))
 
-(defn go[stair] (step stair (:capacity stair)))
+(defn next-stair[stair] (step stair (:capacity stair)))
 
 (defn steps[stair n]
-  (loop [x n s stair] (when (> x 0) (do (print s) (print "\n") (recur (dec x) (go s))))))
+  (loop [x n s stair] (when (> x 0) (do (print s) (print "\n") (recur (dec x) (next-stair s))))))
  
          
