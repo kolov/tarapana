@@ -68,16 +68,33 @@
  (let[stair (make-stair1 n)]
    (if (get-stair-capacity (inc n)) (assoc stair :stair (make-stair (inc n))) stair)))
  
+(defn print-stair1[s level] 
+  (str  " L" level ": ["(:filled s) "/" (:capacity s) "] Wt: ["
+    (->> (map :filled (:streams s)) (interpose ",") (reduce str))
+    "]"))
 
+(defn print-stair[s t] 
+   (str "T=" t
+   (loop [s s l 0 t t r (print-stair1 s 0 )]
+     (let [upstair (:stair s)]
+       (if upstair (recur upstair (inc l) t (str r "|" (print-stair1 upstair l))) r)))))
+(defn print-stages[ss] 
+ (loop[ ss ss r "" t 0]
+   (let [s (first ss)] (if s (recur (next ss)
+     (str r "<div id=\"stage" t "\" class=\"result-row\"\">" (print-stair s t) "</div>") (inc t)) r))))
 
 (def theStair (atom nil) )
 (def stages (atom nil) )
-(defn doShow []  (js/alert @stages))
+(defn doShow []  (js/alert @theStair))
 (set! (.-onclick (d/by-id "show")) doShow)
 
-(defn doStart[] 
-  (js/alert (loop [i 30 s @theStair r [] ]
-     (if (> i 0) (recur (dec i) (f/next-stair s) (conj r s)) r) )))
+(defn calculate-stages[] (let [result (loop [i 10 s @theStair r [] ]
+     (if (> i 0) (recur (dec i) (f/next-stair s) (conj r s)) r) )]
+(swap! stages (constantly result))))
+
+(defn doStart[]  (do 
+ (swap! stages calculate-stages)
+  (append! (d/by-id "stairs-output") (str "<div>" (print-stages @stages) "</div>"))))
 
 (set! (.-onclick (d/by-id "start")) doStart)
 
@@ -85,8 +102,7 @@
 (do
   (append! el (reduce str (map floor (reverse (range n))) ))
   (d/set-styles! (d/by-id "buttons") {:visibility "visible"})
-  (swap! theStair #(make-stair 0)))
-(js/alert @theStair))
+  (swap! theStair #(make-stair 0))) )
 
 (set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") (get-input "floors"))) 
  
