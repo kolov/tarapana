@@ -9,7 +9,7 @@
   (:require-macros [tarapana.csutil :as csutil])
   (:use ;[jayq.core :only [$ css inner]]
         [jayq.util :only [map->js]]
-        [domina :only [append!]]
+        [domina :only [append! destroy-children!]]
         [domina.xpath :only [xpath]]
         [domina.css :only [sel]]
         )
@@ -94,6 +94,7 @@
 (swap! stages (constantly result))))
 
 (defn doStart[]  (do 
+ (swap! theStair #(make-stair 0))
  (swap! stages calculate-stages)
   (append! (d/by-id "stairs-output") (str "<div>" (print-stages @stages) "</div>"))))
 
@@ -101,9 +102,10 @@
 
 (defn draw-stair[el n]
 (do
+  (destroy-children! el)
   (append! el (reduce str (map floor (reverse (range n))) ))
   (d/set-styles! (d/by-id "buttons") {:visibility "visible"})
-  (swap! theStair #(make-stair 0))) )
+  ) )
 
 (set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") (get-input "floors"))) 
  
