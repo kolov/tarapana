@@ -19,10 +19,11 @@
                      [ring-serve "0.1.1"]
                      ]
   :plugins [[lein-cljsbuild "0.3.0"]
-            [lein-swank "1.4.4"]]
+            [lein-swank "1.4.4"]
+            [lein-ring "0.8.3"]]
   :source-path "src"
   :main tarapana.core
-  :ring {:handler net.kolov.jaclo.core/app}
+  :ring {:handler tarapana.core/app}
   ;  :hooks [leiningen.cljsbuild]
   :extra-classpath-dirs ["~/projects/clojurescript/src/clj"
                          "~/projects/clojurescript/src/cljs"]
