@@ -75,9 +75,10 @@
 
 (defn print-stair[s t] 
    (str "T=" t
-   (loop [s s l 0 t t r (print-stair1 s 0 )]
+        (loop [s s l 0 t t r (print-stair1 s l )]
      (let [upstair (:stair s)]
-       (if upstair (recur upstair (inc l) t (str r "|" (print-stair1 upstair l))) r)))))
+       (if upstair (recur upstair (inc l) t (str r "|" (print-stair1 upstair (inc l)))) r)))))
+
 (defn print-stages[ss] 
  (loop[ ss ss r "" t 0]
    (let [s (first ss)] (if s (recur (next ss)
@@ -88,7 +89,7 @@
 (defn doShow []  (js/alert @theStair))
 (set! (.-onclick (d/by-id "show")) doShow)
 
-(defn calculate-stages[] (let [result (loop [i 10 s @theStair r [] ]
+(defn calculate-stages[] (let [result (loop [i 30 s @theStair r [] ]
      (if (> i 0) (recur (dec i) (f/next-stair s) (conj r s)) r) )]
 (swap! stages (constantly result))))
 
