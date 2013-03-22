@@ -34,14 +34,13 @@
                  ;  (append! (sel "#stairs-input") "<div>Repl started</div>")
                 ))
 
-(defn floor [level]
+(defn floor [level n]
   (str "<div class=\"row\">"
-       "<div class=\"span2\"><input class=\"small-input\" id=\"stream" level "-0\" value=\"100\"> --&gt;</div>"
-       "<div class=\"span2\" align=\"center\">&nbsp;|&nbsp;</div>"
-       "<div class=\"span2\"> &lt;-- <input class=\"small-input\" id=\"stream" level "-1\" value=\"100\"> </div>"
+       "<div class=\"span2\">Stromen niveau " (inc level) "</div>"
+       (reduce str (for[ i (range n)] ( str "<div class=\"span1\"><input class=\"small-input\" id=\"stream" level "-" i "\" value=\"100\"></div>")))
        "</div>" 
        "<div class=\"row\">"
-    "<div class=\"span2\">&nbsp;</div>"
+    "<div class=\"span2\"Capacitei>Capaciteit trap " (inc level)  " </div>" 
     "<div class=\"span2\">"
       "<input class=\"small-input\" id=\"stair-filled" level "\" value=\"0\"/>/"
       "<input class=\"small-input\" id=\"stair" level "\" value=\"15\"/>"
@@ -100,12 +99,12 @@
 
 (set! (.-onclick (d/by-id "start")) doStart)
 
-(defn draw-stair[el n]
+(defn draw-stair[el floors streams]
 (do
   (destroy-children! el)
-  (append! el (reduce str (map floor (reverse (range n))) ))
+  (append! el (reduce str (map #(floor % streams) (reverse (range floors))) ))
   (d/set-styles! (d/by-id "buttons") {:visibility "visible"})
   ) )
 
-(set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") (get-input "floors"))) 
+(set! (.-onclick generateButton) #(draw-stair (d/by-id "stairs-input") (get-input "floors") (get-input "streams"))) 
  

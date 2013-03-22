@@ -16,7 +16,7 @@
   (GET "stairs" [] (resource-response "public/stairs.html"))
   (GET "/stairs/*" [] (resource-response "public/stairs.html"))
   (r/resources "/")
-  (r/not-found "<h1>Page not found</h1> <br/> Try <a href=\"/search.html\">search.html</a>")
+  (r/not-found "<h1>Page not found</h1> <br/> Try <a href=\"/stairs.html\">stairs</a>")
   )
 
 ;(defn app-reload [] (-> app-routes (handler/site)

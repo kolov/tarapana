@@ -9,8 +9,7 @@
                  [ring/ring-core "1.1.0"]
                  [clj-http "0.3.0"]
                  [jayq "0.1.0-alpha4"]
-                 [domina "1.0.2-SNAPSHOT"]
-                ; [org.clojure/google-closure-library-third-party "0.0-2029"]
+                 [domina "1.0.2-SNAPSHOT"] 
                 [org.clojure/google-closure-library "0.0-1376-2"]
                 [org.clojure/google-closure-library-third-party "0.0-1376-2"]
                  [ring/ring-jetty-adapter "1.1.0-SNAPSHOT"]]
@@ -21,7 +20,8 @@
   :plugins [[lein-cljsbuild "0.3.0"]
             [lein-swank "1.4.4"]
             [lein-ring "0.8.3"]]
-  :source-path "src"
+  :source-path "src" 
+  :web-content "resources/public"
   :main tarapana.core
   :ring {:handler tarapana.core/app}
   ;  :hooks [leiningen.cljsbuild]
