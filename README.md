@@ -1,13 +1,12 @@
 # tarapana
 
-A Clojure library designed to ... well, that part is up to you.
+Calculates Evacuation on stairs according to Dutch Bouwbesluit.
 
 ## Usage
 
-FIXME
+See example with a very limited input interfac at http://tarapana.kolov-it.nl/stairs.html
 
 ## License
 
 Copyright © 2013 FIXME
 
-Distributed under the Eclipse Public License, the same as Clojure.
